@@ -33,6 +33,11 @@
 #define NULL ((void *)0)
 #endif
 
+#ifndef UNUSED
+#define UNUSED(x) ((void)x)
+#endif
+
+
 #define ZERO_STRUCT(s) memset(&(s), 0, sizeof(s))
 #define ZERO_STRUCTP(s) memset(s, 0, sizeof(*(s)))
 

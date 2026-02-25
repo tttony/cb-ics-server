@@ -287,6 +287,7 @@ int net_send_string(int fd, char *str, int wrap, int width)
 	break;
       case '\033':
 	net_globals.con[which]->outPos -= 3;
+	/* fallthrough */
       default:
 	sendme(which, str, 1);
       }
@@ -346,7 +347,7 @@ static int readline2(char *com, int who)
 	state = 1;
       } else if (*s == '\n') {
 	*s = '\0';
-	strcpy(com, start);
+	strcpy(com, (const char*)start);
 	if (howmany)
 	  bcopy(s + 1, start, howmany);
 	net_globals.con[who]->state = 0;
@@ -546,7 +547,7 @@ void select_loop(void )
 	char com[MAX_STRING_LENGTH];
 	struct sockaddr_in cli_addr;
 	int cli_len = (int) sizeof(struct sockaddr_in);
-	int fd, loop, nfound, lineComplete;
+	int fd, loop, /*nfound*/ lineComplete;
 	fd_set readfds;
 	struct timeval to;
 	int current_socket;
@@ -592,7 +593,7 @@ void select_loop(void )
 	
 	to.tv_usec = 0;
 	to.tv_sec = timeout;
-	nfound = select(net_globals.no_file, &readfds, NULL, NULL, &to);
+	/*nfound =*/ select(net_globals.no_file, &readfds, NULL, NULL, &to);
 	for (loop = 0; loop < net_globals.no_file; loop++) {
 		if (net_globals.con[loop]->status != NETSTAT_EMPTY) {
 			fd = net_globals.con[loop]->fd;

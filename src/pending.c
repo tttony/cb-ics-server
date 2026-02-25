@@ -658,6 +658,7 @@ static void pend_print(int p, struct pending *pend)
 
 int com_pending(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   struct pending* current = seek_globals.pendlist;
   int num = 0;

@@ -42,6 +42,7 @@ static int set_boolean_flag(int p, char *val, unsigned long flag)
 
 static int set_availinfo(int p, char *var, char *val)
 {
+  UNUSED(var);
   int v = set_boolean_flag(p, val, PFLAG_AVAIL);
 
   if (v < 0)
@@ -57,6 +58,7 @@ static int set_availinfo(int p, char *var, char *val)
 
 static int set_availmax(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -81,6 +83,7 @@ static int set_availmax(int p, char *var, char *val)
 
 static int set_availmin(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -103,6 +106,7 @@ static int set_availmin(int p, char *var, char *val)
 
 static int set_open(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = set_boolean_flag(p, val, PFLAG_OPEN);
 
@@ -122,6 +126,7 @@ static int set_open(int p, char *var, char *val)
 
 static int set_tourney(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = set_boolean_flag(p, val, PFLAG_TOURNEY);
 
@@ -141,6 +146,7 @@ static int set_tourney(int p, char *var, char *val)
 
 static int set_sopen(int p, char *var, char *val)
 {
+  UNUSED(var);
   int v = set_boolean_flag(p, val, PFLAG_SIMOPEN);
 
   if (v < 0)
@@ -157,6 +163,7 @@ static int set_sopen(int p, char *var, char *val)
 
 static int set_ropen(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_ROPEN) < 0)
     return VAR_BADVAL;
   pprintf(p, "ropen set to %d.\n", BoolCheckPFlag(p, PFLAG_ROPEN));
@@ -165,6 +172,7 @@ static int set_ropen(int p, char *var, char *val)
 
 static int set_rated(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (!CheckPFlag(p, PFLAG_REG)) {
     pprintf(p, "You cannot change your rated status.\n");
     return VAR_OK;
@@ -177,6 +185,7 @@ static int set_rated(int p, char *var, char *val)
 
 static int set_shout(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_SHOUT) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_SHOUT))
@@ -188,6 +197,7 @@ static int set_shout(int p, char *var, char *val)
 
 static int set_ads(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_ADS) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_ADS))
@@ -199,6 +209,7 @@ static int set_ads(int p, char *var, char *val)
 
 static int set_cshout(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_CSHOUT) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_CSHOUT))
@@ -210,6 +221,7 @@ static int set_cshout(int p, char *var, char *val)
 
 static int set_kibitz(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_KIBITZ) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_KIBITZ))
@@ -220,6 +232,7 @@ static int set_kibitz(int p, char *var, char *val)
 }
 static int set_kiblevel(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -236,6 +249,7 @@ static int set_kiblevel(int p, char *var, char *val)
 
 static int set_tell(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_TELL) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_TELL))
@@ -247,6 +261,7 @@ static int set_tell(int p, char *var, char *val)
 
 static int set_notifiedby(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_NOTIFYBY) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_NOTIFYBY))
@@ -258,6 +273,7 @@ static int set_notifiedby(int p, char *var, char *val)
 
 static int set_pinform(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_PIN) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_PIN))
@@ -269,6 +285,7 @@ static int set_pinform(int p, char *var, char *val)
 
 static int set_ginform(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_GIN) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_GIN))
@@ -280,6 +297,7 @@ static int set_ginform(int p, char *var, char *val)
 
 static int set_private(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_PRIVATE) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_PRIVATE))
@@ -291,6 +309,7 @@ static int set_private(int p, char *var, char *val)
 
 static int set_jprivate(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (!CheckPFlag(p, PFLAG_REG)) {
     pprintf(p, "Unregistered players may not keep a journal.\n");
     return VAR_OK;
@@ -307,6 +326,7 @@ static int set_jprivate(int p, char *var, char *val)
 
 static int set_automail(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_AUTOMAIL) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_AUTOMAIL))
@@ -318,6 +338,7 @@ static int set_automail(int p, char *var, char *val)
 
 static int set_mailmess(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (!CheckPFlag(p, PFLAG_REG)) {
     pprintf(p, "Unregistered players may not receive messages.\n");
     return VAR_OK;
@@ -333,6 +354,7 @@ static int set_mailmess(int p, char *var, char *val)
 
 static int set_pgn(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_PGN) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_PGN))
@@ -344,6 +366,7 @@ static int set_pgn(int p, char *var, char *val)
 
 static int set_bell(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_BELL) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_BELL))
@@ -355,6 +378,7 @@ static int set_bell(int p, char *var, char *val)
 
 static int set_highlight(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -376,6 +400,7 @@ static int set_highlight(int p, char *var, char *val)
 
 static int set_style(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -392,6 +417,7 @@ static int set_style(int p, char *var, char *val)
 
 static int set_flip(int p, char *var, char *val)
 {
+  UNUSED(var);
   if (set_boolean_flag(p, val, PFLAG_FLIP) < 0)
     return VAR_BADVAL;
   if (CheckPFlag(p, PFLAG_FLIP))
@@ -418,6 +444,7 @@ static int set_uscf(int p, char *var, char *val)
 */
 static int set_time(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -434,6 +461,7 @@ static int set_time(int p, char *var, char *val)
 
 static int set_inc(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -450,6 +478,7 @@ static int set_inc(int p, char *var, char *val)
 
 static int set_height(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int v = -1;
 
@@ -466,6 +495,7 @@ static int set_height(int p, char *var, char *val)
 
 static int set_width(int p, char *var, char *val)
 {
+    UNUSED(var);
 	struct player *pp = &player_globals.parray[p];
 	int v = -1;
 
@@ -488,6 +518,7 @@ const char *Language(int i)
 
 static int set_language (int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   int i, len, gotIt = -1;
 
@@ -510,6 +541,7 @@ static int set_language (int p, char *var, char *val)
 
 static int set_promote(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   if (!val)
     return VAR_BADVAL;
@@ -541,6 +573,7 @@ static int set_promote(int p, char *var, char *val)
 
 static int set_interface(int p, char *var, char *val)
 {
+    UNUSED(var);
 	struct player *pp = &player_globals.parray[p];
 	if (!val) {
 		FREE(pp->interface);
@@ -555,6 +588,7 @@ static int set_interface(int p, char *var, char *val)
 
 static int set_prompt(int p, char *var, char *val)
 {
+  UNUSED(var);
 	struct player *pp = &player_globals.parray[p];
 	char *prompt;
 	if (!val) {
@@ -651,6 +685,7 @@ int com_partner(int p, param_list param)
 
 static int set_busy(int p, char *var, char *val)
 {
+  UNUSED(var);
   struct player *pp = &player_globals.parray[p];
   if (!val) {
     if (pp->busy != NULL) {
@@ -860,7 +895,7 @@ static int set_find(char *var)
 {
   int i = 0;
   int gotIt = -1;
-  int len = strlen(var);
+  size_t len = strlen(var);
 
   while (variables[i].name) {
     if (!strncmp(variables[i].name, var, len)) {

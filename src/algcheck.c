@@ -92,7 +92,7 @@ static int get_move_info(const char *str, piece_t *piece, int *ff, int *fr, int 
   len = strlen(tmp);
   for (i = 0; alg_list[i]; i++) {
     lpiece = lff = lfr = ltf = ltr = ALG_UNKNOWN;
-    if (strlen(alg_list[i]) != len)
+    if (strlen(alg_list[i]) != (size_t)len)
       continue;
     for (j = len - 1; j >= 0; j--) {
       switch (alg_list[i][j]) {

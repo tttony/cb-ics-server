@@ -985,6 +985,7 @@ static int CheckRepetition (int p, int g)
 
 int com_draw(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   struct pending* pend;
   int p1, g = pp->game;
@@ -1019,6 +1020,7 @@ int com_draw(int p, param_list param)
 
 int com_pause(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int g, now;
   struct pending* pend;
@@ -1065,6 +1067,7 @@ int com_pause(int p, param_list param)
 
 int com_unpause(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int g;
   int now;
@@ -1103,6 +1106,7 @@ int com_unpause(int p, param_list param)
 
 int com_abort(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   struct pending* pend;
   int p1, g, myColor, yourColor, myGTime, yourGTime;
@@ -1214,6 +1218,7 @@ static int player_has_mating_material(struct game_state_t *gs, int color)
 
 int com_flag(int p, param_list param)
 {
+    UNUSED(param);
 	struct player *pp = &player_globals.parray[p];
 	struct game *gg;
 	int g;
@@ -1299,6 +1304,7 @@ int com_flag(int p, param_list param)
 
 int com_adjourn(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   struct pending* pend;
   int p1, g, myColor, yourColor;
@@ -1437,6 +1443,7 @@ int com_takeback(int p, param_list param)
 
 int com_switch(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int g = pp->game, tmp, now, p1;
   char *strTmp;
@@ -1530,6 +1537,7 @@ int com_time(int p, param_list param)
 
 int com_ptime(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int retval, part = pp->partner;
 
@@ -1837,6 +1845,7 @@ int com_goboard(int p, param_list param)
 
 int com_simnext(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int on, g;
 
@@ -1867,6 +1876,7 @@ int com_simnext(int p, param_list param)
 
 int com_simprev(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int on, g;
 
@@ -1915,6 +1925,7 @@ int com_simgames(int p, param_list param)
 
 int com_simpass(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int g, p1, on;
 
@@ -1968,6 +1979,7 @@ int com_simpass(int p, param_list param)
 
 int com_simabort(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
 
   if (pp->simul_info == NULL) {
@@ -1987,6 +1999,7 @@ int com_simabort(int p, param_list param)
 
 int com_simallabort(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int i;
 
@@ -2011,6 +2024,7 @@ int com_simallabort(int p, param_list param)
 
 int com_simadjourn(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
 
   if (pp->simul_info == NULL) {
@@ -2030,6 +2044,7 @@ int com_simadjourn(int p, param_list param)
 
 int com_simalladjourn(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int i;
 

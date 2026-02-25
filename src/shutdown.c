@@ -197,6 +197,7 @@ int com_shutdown(int p, param_list param)
             secs = 0;
             break;
           }
+          /* fallthrough */
         default:
           shutdownTime = 0;
           pprintf(p, "I don't know what you mean by %s\n", param[0].val.word);
@@ -234,6 +235,7 @@ int com_shutdown(int p, param_list param)
 int com_whenshut(int p, param_list param)
 
 {
+  UNUSED(param);
  if (check_and_print_shutdown(p) == 0) {
    pprintf (p,"No shutdown currently in progress\n");
  }

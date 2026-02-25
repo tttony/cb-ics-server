@@ -32,7 +32,7 @@
 /*
   check that a player has sufficient rights for an operation
 */
-int check_admin(int p, unsigned level)
+int check_admin(int p, int level)
 {
 	struct player *pp = &player_globals.parray[p];
 	/* gods and head admins always get what they want */
@@ -780,7 +780,7 @@ int com_asethandle(int p, param_list param)
 int com_asetadmin(int p, param_list param)
 {
   struct player *pp = &player_globals.parray[p];
-  int p1, connected, oldlevel;
+  int p1, connected/*, oldlevel*/;
 
   if (!FindPlayer(p, param[0].val.word,&p1, &connected))
     return COM_OK;
@@ -801,7 +801,7 @@ int com_asetadmin(int p, param_list param)
       player_remove(p1);
     return COM_OK;
   }
-  oldlevel = player_globals.parray[p1].adminLevel;
+  //oldlevel = player_globals.parray[p1].adminLevel;
   player_globals.parray[p1].adminLevel = param[1].val.integer;
   pprintf(p, "Admin level of %s set to %d.\n", player_globals.parray[p1].name, player_globals.parray[p1].adminLevel);
   player_save(p1);
@@ -815,6 +815,7 @@ int com_asetadmin(int p, param_list param)
 
 static void SetRating(int p1, param_list param, struct statistics *s)
 {
+  UNUSED(p1);
   s->rating = param[1].val.integer;
   if (s->ltime == 0L)
     s->sterr = 70.0;
@@ -1161,6 +1162,7 @@ int com_showcomment(int p, param_list param)
  */
 int com_admin(int p, param_list param)
 {
+  UNUSED(param);
   TogglePFlag(p, PFLAG_ADMINLIGHT);
   if (CheckPFlag(p, PFLAG_ADMINLIGHT)) {
     pprintf(p, "Admin mode (*) is now shown.\n");
@@ -1172,6 +1174,7 @@ int com_admin(int p, param_list param)
 
 int com_hideinfo(int p, param_list param)
 {
+    UNUSED(param);
 	TogglePFlag(p, PFLAG_HIDEINFO);
  
 	if (CheckPFlag(p, PFLAG_HIDEINFO))
@@ -1208,6 +1211,7 @@ int com_quota(int p, param_list param)
 */
 int com_areload(int p, param_list param)
 {
+    UNUSED(param);
 	extern unsigned chessd_reload_flag;
 
 	chessd_reload_flag = 1;

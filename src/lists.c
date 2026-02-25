@@ -486,13 +486,13 @@ int list_channels(int p,int p1)
 {
   struct player *pp = &player_globals.parray[p];
   struct List *gl;
-  int i, rights;
+  int i/*, rights*/;
 
     gl = list_findpartial(p1, "channel", 0);
     if (!gl) {
       return 1;
     }
-    rights = ListArray[gl->which].rights;
+    //rights = ListArray[gl->which].rights;
     /* display the list */
     if (gl->numMembers == 0)
       return 1;

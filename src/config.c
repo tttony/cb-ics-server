@@ -78,7 +78,7 @@ const char *config_get(const char *name)
 	TDB_DATA data;
 	TDB_DATA key;
 
-	key.dptr = name;
+	key.dptr = (unsigned char*)name;
 	key.dsize = strlen(name)+1;
 
 	data = tdb_fetch(config_db, key);
@@ -89,7 +89,7 @@ const char *config_get(const char *name)
 		data = tdb_fetch(config_db, key);
 	}
 
-	return data.dptr;
+	return (const char *)data.dptr;
 }
 
 
@@ -102,7 +102,7 @@ int config_get_int(const char *name, int default_v)
 	TDB_DATA key;
 	int v;
 
-	key.dptr = name;
+	key.dptr = (unsigned char*)name;
 	key.dsize = strlen(name)+1;
 
 	data = tdb_fetch(config_db, key);
@@ -117,7 +117,7 @@ int config_get_int(const char *name, int default_v)
             data = tdb_fetch(config_db, key);
 	}
 
-	v = atoi(data.dptr);
+	v = atoi((const char*)data.dptr);
 	free(data.dptr);
 
 	return v;
@@ -134,14 +134,14 @@ static int config_set(const char *name, const char *value)
 	TDB_DATA key;
 	int ret;
 
-	key.dptr = name;
+	key.dptr = (unsigned char*)name;
 	key.dsize = strlen(name)+1;
 	
 	if (strcmp(value, "-") == 0) {
 		return tdb_delete(config_db, key);
 	}
 
-	data.dptr = value;
+	data.dptr = (unsigned char*)value;
 	data.dsize = strlen(value)+1;
   
 	ret = tdb_store(config_db, key, data, TDB_REPLACE);
@@ -154,13 +154,14 @@ static int config_set(const char *name, const char *value)
 */
 const char *config_get_tmp(const char *name)
 {
-	static const char *ret[10];
+	static /*const*/ char *ret[10];
 	static unsigned idx;
-	const char **p = &ret[idx];
+	/*const*/ char **p = &ret[idx];
 	idx = (idx+1) % 10;
 	FREE(*p);
-	*p = config_get(name);
-	return *p;
+	return config_get(name);
+	//*p = config_get(name);
+	//return *p;
 }
 
 
@@ -177,7 +178,7 @@ static void config_dump(int p)
 	     data2 = data1, 
 		     data1 = tdb_nextkey(config_db, data2), 
 		     free(data2.dptr)) {
-		pprintf(p, "%s = %s\n", data1.dptr, config_get_tmp(data1.dptr));
+		pprintf(p, "%s = %s\n", data1.dptr, config_get_tmp((const char *)data1.dptr));
 	}
 }
 

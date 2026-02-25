@@ -328,6 +328,7 @@ int com_allobservers(int p, param_list param)
 
 int com_unexamine(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int g, p1, flag = 0;
 
@@ -1412,6 +1413,7 @@ int com_backward(int p, param_list param)
 
 int com_revert(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int nHalfMoves = 1;
   int g, i;
@@ -1833,6 +1835,7 @@ int com_refresh(int p, param_list param)
 
 int com_prefresh(int p, param_list param)
 {
+  UNUSED(param);
   struct player *pp = &player_globals.parray[p];
   int retval, part = pp->partner;
 

@@ -131,6 +131,8 @@ int NextPieceLoop(board_t b, int *f, int *r, int color, int w, int h)
 
 int InitPieceLoop(board_t b, int *f, int *r, int color)
 {
+  UNUSED(b);
+  UNUSED(color);
   *f = 0;
   *r = -1;
   return 1;
@@ -210,6 +212,7 @@ static int legal_hoplite_move( struct game_state_t *gs, int ff, int fr, int tf, 
 
 static int legal_knight_move(struct game_state_t * gs, int ff, int fr, int tf, int tr)
 {
+  UNUSED(gs);
   int dx, dy;
 
   dx = ff - tf;
@@ -445,6 +448,7 @@ static int is_square_attacked(struct game_state_t * gs, int kf, int kr)
 
 static int legal_man_move(struct game_state_t * gs, int ff, int fr, int tf, int tr)
 {
+  UNUSED(gs);
   if (abs(ff - tf) > 1)
     return 0;
   if (abs(fr - tr) > 1)
@@ -466,6 +470,7 @@ static int legal_wazir_move(struct game_state_t * gs, int ff, int fr, int tf, in
 
 static int legal_dababba_move(struct game_state_t * gs, int ff, int fr, int tf, int tr)
 {
+  UNUSED(gs);
   if (abs(ff - tf) == 2 && fr == tr)
     return 1;
   if (abs(fr - tr) == 2 && ff == tf)
@@ -475,6 +480,7 @@ static int legal_dababba_move(struct game_state_t * gs, int ff, int fr, int tf, 
 
 static int legal_ferz_move(struct game_state_t * gs, int ff, int fr, int tf, int tr)
 {
+  UNUSED(gs);
   if (abs(ff - tf) != 1)
     return 0;
   if (abs(fr - tr) != 1)
@@ -496,6 +502,7 @@ static int legal_mandarin_move(struct game_state_t * gs, int ff, int fr, int tf,
 
 static int legal_alfil_move(struct game_state_t * gs, int ff, int fr, int tf, int tr)
 {
+  UNUSED(gs);
   if (abs(ff - tf) != 2)
     return 0;
   if (abs(fr - tr) != 2)
@@ -1403,6 +1410,7 @@ int legal_move(struct game_state_t * gs,
       switch(move_piece) {
 	case PAWN:  // check for own Pawn in same file
 	  for(r=0; r<gs->ranks; r++) if(gs->board[tFile][r] == (gs->onMove|PAWN)) return 0;
+    /* fallthrough */
 	case LANCE: // Pawns and Lances not on last rank
 	  if(gs->onMove == WHITE && tRank >= gs->ranks-1) return 0;
 	  if(gs->onMove == BLACK && tRank < 1) return 0;
@@ -1648,9 +1656,11 @@ static int move_calculate(struct game_state_t * gs, struct move_t * mt, piece_t 
       switch(piecetype(piece)) { // force mandatory promotions
         case HONORABLEHORSE:
           if(mt->toRank == 1 || mt->toRank == gs->ranks-2) promote = GOLD;
+          /* fallthrough */
         case PAWN:
         case LANCE:
           if(mt->toRank == 0 || mt->toRank == gs->ranks-1) promote = GOLD;
+          /* fallthrough */
         default: break;
       }
     if(promote) mt->piecePromotionTo = promote | (colorval(gs->board[mt->fromFile][mt->fromRank]));
@@ -2398,6 +2408,7 @@ int backup_move(int g, int mode)
 #if BUGHOUSE_PAWN_REVERT
       if ((piece = is_promoted(&game_globals.garray[g], m->toFile, m->toRank))) break;
 #endif
+      /* fallthrough */
       default: piece = PAWN;
     }
     piece |= colorval(gs->board[m->toFile][m->toRank]);

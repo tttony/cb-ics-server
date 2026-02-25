@@ -478,8 +478,8 @@ int com_kibitz(int p, param_list param)
       struct game *gg = &game_globals.garray[g];
       if(gg->numHalfMoves && gg->status == GAME_ACTIVE) {
 	int n = gg->numHalfMoves-1;
-	if(n && (gg->game_state.onMove == WHITE && gg->black != p ||
-	         gg->game_state.onMove == BLACK && gg->white != p   )) n--;
+	if(n && ((gg->game_state.onMove == WHITE && gg->black != p) ||
+	         (gg->game_state.onMove == BLACK && gg->white != p)   )) n--;
 	gg->moveList[n].score = score;
 	gg->moveList[n].depth = depth;
       }
@@ -780,6 +780,7 @@ int com_clearmessages(int p, param_list param)
 
 int com_znotify(int p, param_list param)
 {
+  UNUSED(param);
   int p1, count = 0;
   
   for (p1 = 0; p1 < player_globals.p_num; p1++) {

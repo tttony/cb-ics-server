@@ -758,30 +758,36 @@ int gen_parse_float(char *ptr, const char *str)
 
 int gen_dump_char(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%u", *(unsigned char *)(ptr));
 }
 
 int gen_dump_int(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%d", *(int *)(ptr));
 }
 
 int gen_dump_unsigned(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%u", *(unsigned *)(ptr));
 }
 
 int gen_dump_time_t(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%u", *(time_t *)(ptr));
 }
 
 int gen_dump_double(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%lg", *(double *)(ptr));
 }
 
 int gen_dump_float(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return addshort(p, "%g", *(float *)(ptr));
 }

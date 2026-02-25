@@ -374,7 +374,9 @@ char *board_to_string(char *wn, char *bn,
 		      int orientation, int relation,
 		      int p)
 {
-  int bh = (b->gameNum >= 0 && game_globals.garray[b->gameNum].link >= 0
+  UNUSED(wn);
+  UNUSED(bn);
+  int bh = ((b->gameNum >= 0 && game_globals.garray[b->gameNum].link >= 0)
              || b->holdings || b->drops == 2); // [HGM] zh: make sure holdings are printed (also in Seirawan)
   orient = orientation;
   myTurn = relation;
@@ -450,7 +452,7 @@ void Enlarge(char *buf, int ss, int files)
   for(f=2; (l=strlen(buf)-ss) >= 0 && f<files; f++) {
     memmove(buf+l+1, buf+l+1-ss, ss+ss);
   }
-  return buf;
+  //return buf;
 }
 
 static int genstyle(struct game_state_t *b, struct move_t *ml, const char *wp[], const char *bp[],
@@ -548,7 +550,7 @@ static int genstyle(struct game_state_t *b, struct move_t *ml, const char *wp[],
   }
   q = mylabel; i = 0;
   if (orient == WHITE) {
-    p = label;
+    p = (char*)label;
     while(*p) {
 	switch(*p) {
 	  case ' ':
@@ -561,7 +563,7 @@ static int genstyle(struct game_state_t *b, struct move_t *ml, const char *wp[],
 	}
     }
   } else {
-    p = blabel;
+    p = (char*)blabel;
     while(*p) {
 	switch(*p) {
 	  case ' ':
@@ -779,7 +781,10 @@ static int style8(struct game_state_t *b, struct move_t *ml)
       if (b->board[f][r] == NOPIECE) {
 	strcat(bstring, " ");
       } else {
-	strcat(bstring, piecechar(b->board[f][r]));
+      char t[2];
+      t[0] =piecechar(b->board[f][r]);
+      t[1] = 0;
+	strcat(bstring, t);
       }
     }
   }
@@ -849,7 +854,10 @@ static int style10(struct game_state_t *b, struct move_t *ml)
       if (b->board[f][r] == NOPIECE) {
 	strcat(bstring, " ");
       } else {
-	strcat(bstring, piecechar(b->board[f][r]));
+      char t[2];
+      t[0] =piecechar(b->board[f][r]);
+      t[1] = 0;
+	strcat(bstring, t);
       }
     }
     strcat(bstring, "|\n");
@@ -917,7 +925,10 @@ static int style11(struct game_state_t *b, struct move_t *ml)
       if (b->board[f][r] == NOPIECE) {
 	strcat(bstring, " ");
       } else {
-	strcat(bstring, piecechar(b->board[f][r]));
+      char t[2];
+      t[0] =piecechar(b->board[f][r]);
+      t[1] = 0;
+	strcat(bstring, t);
       }
     }
   }
@@ -961,7 +972,10 @@ static int style12(struct game_state_t *b, struct move_t *ml)
       if (b->board[f][r] == NOPIECE) {
 	strcat(bstring, "-");
       } else {
-	strcat(bstring, piecechar(b->board[f][r]));
+      char t[2];
+      t[0] =piecechar(b->board[f][r]);
+      t[1] = 0;
+	strcat(bstring, t);
       }
     }
     strcat(bstring, " ");
@@ -1271,6 +1285,7 @@ static int board_read_file(char *category, char *gname, struct game_state_t *gs)
       case '#':
 	while (!feof(fp) && c != '\n')
 	  c = fgetc(fp);	/* Comment line */
+	  /* fallthrough */
       case '\n':
 	onNewLine = 1;
 	onColor = -1;

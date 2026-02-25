@@ -213,6 +213,7 @@ extern FILE *comlog;
 
 int com_sought(int p, param_list param)
 {
+	UNUSED(param);
 	int             i;
 
 	for (i = 0; i < seek_globals.max_ads; i++) {
@@ -229,6 +230,7 @@ if(comlog) fprintf(comlog, "msgtext = %s\n", msgtxt), fflush(comlog);
 
 int com_unseek(int p, param_list param)
 {
+	UNUSED(param);
 	/* TODO: need to add parameters */
 	withdraw_seeks(p);
 	return COM_OK;

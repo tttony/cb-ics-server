@@ -81,12 +81,12 @@ static int news_save(int num, struct news *news, int admin)
 	asprintf(&name, "%s%u", admin?"ADMIN/":"", num);
 	if (tdb_set_string(news_db, name, s) != 0) {
 		free(name);
-		free(s);
+		free((char*)s);
 		return -1;
 	}
 
 	free(name);
-	free(s);
+	free((char*)s);
 
 	if (news_max(admin) < num) {
 		tdb_set_int(news_db, admin?"ADMIN_MAXNUM":"MAXNUM", num);
@@ -114,7 +114,7 @@ static int news_load(int num, struct news *news, int admin)
 	free(name);
 
 	ret = unmarshall_news(news, s);
-	free(s);
+	free((char*)s);
 	return ret;
 }
 

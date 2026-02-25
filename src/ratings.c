@@ -957,6 +957,7 @@ int com_best(int p, param_list param)
 
 int com_statistics(int p, param_list param)
 {
+  UNUSED(param);
   pprintf(p, "                Standard       Blitz   Lightning        Wild\n");
   pprintf(p, "average:         %7.2f     %7.2f     %7.2f     %7.2f\n", Ratings_S_Average, Ratings_B_Average, Ratings_L_Average, Ratings_W_Average);
   pprintf(p, "std dev:         %7.2f     %7.2f     %7.2f     %7.2f\n", Ratings_S_StdDev, Ratings_B_StdDev, Ratings_L_StdDev, Ratings_W_StdDev);
@@ -1089,7 +1090,12 @@ static int GetRankFileName(char *out, int type)
    into outer space */
 void UpdateRank(int type, char *addName,
 		struct statistics *sNew, char *delName)
-{}
+{
+  UNUSED(type);
+  UNUSED(addName);
+  UNUSED(sNew);
+  UNUSED(delName);
+}
 
 #if 0
 void UpdateRank(int type, char *addName,
@@ -1264,6 +1270,7 @@ static int ShowRankEntry(int p, FILE * fp, int count, int comp,
 
 static int CountAbove(int num, int blitz, int std, int wild, int which)
 {
+  UNUSED(which);
   int max = blitz;
 
   if (max < std)

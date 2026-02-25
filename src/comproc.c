@@ -30,12 +30,14 @@ const int bug_rat = 5;
 
 int com_more(int p, param_list param)
 {
+    UNUSED(param);
 	pmore_text(p);
 	return COM_OK;
 }
 
 int com_quit(int p, param_list param)
 {
+    UNUSED(param);
 	struct player *pp = &player_globals.parray[p];
 
 	/* Examined games are killed on logout */
@@ -140,7 +142,7 @@ int com_stats(int p, param_list param)
   int g, i;
   time_t t;
   int p1, connected;
-  char line[255], tmp[255], tmp2[255];
+  char line[255], tmp[255], tmp2[32];
   int numbers[MAX_OBSERVE > MAX_SIMUL ? MAX_OBSERVE : MAX_SIMUL];
   int onTime;
   int showRatingsFlag, showNotesFlag;
@@ -176,6 +178,7 @@ int com_stats(int p, param_list param)
   AddPlayerLists(p1, tmp2);
   tmp2[17] = '\0';
   sprintf(line, "\nStatistics for %-17s", tmp2);
+  //snprintf(line, sizeof(line), "\nStatistics for %-17s", tmp2);
   if ((connected) && (player_globals.parray[p1].status == PLAYER_PROMPT)) {
     sprintf(tmp, "On for: %s", hms_desc(player_ontime(p1)));
     strcat(line, tmp);
@@ -347,6 +350,7 @@ int com_password(int p, param_list param)
 
 int com_uptime(int p, param_list param)
 {
+  UNUSED(param);
   time_t uptime = time(0) - command_globals.startuptime;
   int days  = (uptime / (60*60*24));
   int hours = ((uptime % (60*60*24)) / (60*60));
@@ -382,6 +386,7 @@ int com_uptime(int p, param_list param)
 
 int com_date(int p, param_list param)
 {
+    UNUSED(param);
 	time_t t = time(0);
 	pprintf(p, "Local time     - %s\n", strltime(&t));
 	pprintf(p, "Greenwich time - %s\n", strgtime(&t));
@@ -428,6 +433,7 @@ static int plogins(int p, char *fname)
 
 int com_llogons(int p, param_list param)
 {
+    UNUSED(param);
 	int result;
 	if (!CheckPFlag(p, PFLAG_REG)) {
 		pprintf(p,"Sorry, guest users may not use this command\n");
@@ -558,7 +564,7 @@ int plist[];
 {
   int i, p1;
   char playerLine[255], tmp[255];	/* +8 for highlight */
-  char p1WithAttrs[255];
+  char p1WithAttrs[32];
 
   pprintf(p,
       " +---------------------------------------------------------------+\n"
@@ -1073,6 +1079,7 @@ bad_parameters:
 
 int com_open(int p, param_list param)
 {
+  UNUSED(param);
   int retval;
   if ((retval = pcommand(p, "set open")) != COM_OK)
     return retval;
@@ -1082,6 +1089,7 @@ int com_open(int p, param_list param)
 
 int com_simopen(int p, param_list param)
 {
+  UNUSED(param);
   int retval;
   if ((retval = pcommand(p, "set simopen")) != COM_OK)
     return retval;
@@ -1091,6 +1099,7 @@ int com_simopen(int p, param_list param)
 
 int com_bell(int p, param_list param)
 {
+  UNUSED(param);
   int retval;
   if ((retval = pcommand(p, "set bell")) != COM_OK)
     return retval;
@@ -1100,6 +1109,7 @@ int com_bell(int p, param_list param)
 
 int com_flip(int p, param_list param)
 {
+  UNUSED(param);
   int retval;
   if ((retval = pcommand(p, "set flip")) != COM_OK)
     return retval;
@@ -1296,6 +1306,7 @@ int com_getpi(int p, param_list param)
 
 int com_limits(int p, param_list param)
 {
+    UNUSED(param);
 	struct player *pp = &player_globals.parray[p];
 
 	pprintf(p, "\nCurrent hardcoded limits:\n");

@@ -65,6 +65,7 @@ void save_userstat(void)
 
 int com_oping(int p, param_list param)
 {
+  UNUSED(param);
 	if (pIsPlaying(p))
 		return ping(p, player_globals.parray[p].opponent);
 	return COM_OK;

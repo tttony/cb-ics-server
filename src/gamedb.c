@@ -939,7 +939,7 @@ static void WriteGameFile_v100(FILE * fp, int g)
 
 	/* and save it */
 	fprintf(fp, "v 100\n%s\n", s);
-	free(s);
+	free((char*)s);
 }
 
 
@@ -1743,7 +1743,7 @@ static int check_kings(struct game_state_t *gs)
 		}
 	}
 	
-	if ((blackking == 1 || blackking == 2 && !strcmp(gs->variant, "spartan")) && whiteking == 1) return 0; /* Perfect! */
+	if ((blackking == 1 || (blackking == 2 && !strcmp(gs->variant, "spartan") && whiteking == 1))) return 0; /* Perfect! */
 	
 	return -1;
 }

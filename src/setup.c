@@ -290,6 +290,7 @@ static void getsquare(char* square,int *f, int *r)
 
 int attempt_drop(int p,int g,char* dropstr)
 {
+  UNUSED(p);
  int len = strlen(dropstr);
  piece_t piece = 0;
  int f;

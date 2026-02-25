@@ -999,7 +999,7 @@ int file_save(const char *fname, void *data, size_t length)
 	if (fd == -1) {
 		return -1;
 	}
-	if (write(fd, data, length) != length) {
+	if (write(fd, data, length) != (ssize_t)length) {
 		close(fd);
 		unlink(fname);
 		return -1;
@@ -1057,7 +1057,7 @@ char *file_load(const char *fname, size_t *size)
 char *fd_gets(char *line, size_t maxsize, int fd)
 {
 	char c;
-	int n = 0;
+	size_t n = 0;
 	while (n < (maxsize-1) && read(fd, &c, 1) == 1) {
 		line[n++] = c;
 		if (c == '\n') break;

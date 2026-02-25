@@ -915,8 +915,8 @@ int process_heartbeat(int *fd)
 	struct tm *nowtm;
 	int p;
 	time_t now = time(0); 
-	unsigned idle_timeout = config_get_int("IDLE_TIMEOUT", DEFAULT_IDLE_TIMEOUT);
-	unsigned login_timeout = config_get_int("LOGIN_TIMEOUT", DEFAULT_LOGIN_TIMEOUT);
+	int idle_timeout = config_get_int("IDLE_TIMEOUT", DEFAULT_IDLE_TIMEOUT);
+	int login_timeout = config_get_int("LOGIN_TIMEOUT", DEFAULT_LOGIN_TIMEOUT);
 
 	/* Check for timed out connections */
 	for (p = 0; p < player_globals.p_num; p++) {
@@ -1105,6 +1105,7 @@ const struct alias_type *alias_list_personal(int p, int *n)
 */
 int com_acheckhelp(int p, param_list param)
 {
+    UNUSED(param);
 	int i;
 	int count;
 

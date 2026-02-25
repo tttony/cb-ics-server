@@ -131,6 +131,7 @@ static void TerminateServer(int sig)
 
 static void BrokenPipe(int sig)
 {
+	UNUSED(sig);
 	signal(SIGPIPE, BrokenPipe);
 	fprintf(stderr,  "CHESSD: Pipe signal\n");
 }

@@ -90,6 +90,8 @@ void save_all_globals(const char *fname)
  */
 int com_adump(int p, param_list param)
 {
+	UNUSED(p);
+	UNUSED(param);
 	save_all_globals("globals.dat");
 	return COM_OK;
 }
@@ -151,6 +153,7 @@ int unmarshall_news(struct news *nn, const char *s)
 */
 int gen_dump_struct_in_addr(struct parse_string *p, const char *ptr, unsigned indent)
 {
+	UNUSED(indent);
 	return gen_addgen(p, "%s", inet_ntoa(*(struct in_addr *)ptr));
 }
 
