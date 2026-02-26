@@ -31,14 +31,14 @@ static int get_empty_slot(void)
 			return i;
 	}
 
-	if (i < player_globals.parray_size) {
+	if (i < (int)player_globals.parray_size) {
 		player_globals.p_num++;
 		ZERO_STRUCT(player_globals.parray[i]);
 		player_globals.parray[i].status = PLAYER_EMPTY;
 		return i;
 	}
 
-	if (player_globals.parray_size >= config_get_int("MAX_PLAYERS", DEFAULT_MAX_PLAYER)) {
+	if ((int)player_globals.parray_size >= config_get_int("MAX_PLAYERS", DEFAULT_MAX_PLAYER)) {
 		d_printf("Too many players connected!\n");
 		return -1;
 	}

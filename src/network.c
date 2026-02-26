@@ -392,7 +392,7 @@ static int readline2(char *com, int who)
 	state = 1;
       else if (*s == '\n') {
 	*d = '\0';
-	strcpy(com, start);
+	strcpy(com, (const char*)start);
 	if (howmany)
 	  memmove(start, s + 1, howmany);
 	net_globals.con[who]->state = 0;
@@ -432,7 +432,7 @@ static int readline2(char *com, int who)
   net_globals.con[who]->processed = 1;
   if (net_globals.con[who]->numPending == MAX_STRING_LENGTH - 1) {	/* buffer full */
     *d = '\0';
-    strcpy(com, start);
+    strcpy(com, (const char*)start);
     net_globals.con[who]->state = 0;
     net_globals.con[who]->numPending = 0;
     net_globals.con[who]->inBuf[0] = 0;
@@ -562,7 +562,7 @@ void select_loop(void )
 	unblock_signal(SIGTERM);
 	block_signal(SIGTERM);
 	
-	while ((fd = accept(net_globals.sockfd, (struct sockaddr *) & cli_addr, &cli_len)) != -1) {
+	while ((fd = accept(net_globals.sockfd, (struct sockaddr *) & cli_addr, (socklen_t*)&cli_len)) != -1) {
 		if (net_addConnection(fd, cli_addr.sin_addr)) {
 			d_printf( "FICS is full.  fd = %d.\n", fd);
 			psend_raw_file(fd, MESS_DIR, MESS_FULL);

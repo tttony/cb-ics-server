@@ -881,7 +881,7 @@ int file_copy(const char *src, const char *dest)
 size_t strnlen(const char *s, size_t n)
 {
 	int i;
-	for (i=0; s[i] && i<n; i++) /* noop */ ;
+	for (i=0; s[i] && i<(int)n; i++) /* noop */ ;
 	return i;
 }
 #endif
@@ -1079,7 +1079,7 @@ FILE *fopen_p(const char *fmt, const char *mode, ...)
 	va_start(ap, mode);
 	x = vsprintf(s, fmt, ap);
 	va_end(ap);
-	if (!s) return NULL;
+	if (!s[0]) return NULL;
 	if (x == -1 || strstr(s, "..")) {
 		d_printf("Invalid filename [%s]\n", s);
 		return NULL;
@@ -1130,10 +1130,10 @@ int tdb_set_int(TDB_CONTEXT *tdb, const char *name, int value)
 	TDB_DATA key, data;
 	int ret;
 
-	key.dptr = strdup(name);
+	key.dptr = (unsigned char*)strdup(name);
 	key.dsize = strlen(name)+1;
 
-	data.dptr = (char *)&value;
+	data.dptr = (unsigned char *)&value;
 	data.dsize = sizeof(value);
 
 	ret = tdb_store(tdb, key, data, TDB_REPLACE);
@@ -1149,7 +1149,7 @@ int tdb_get_int(TDB_CONTEXT *tdb, const char *name, int def_value)
 	TDB_DATA key, data;
 	int ret;
 
-	key.dptr = strdup(name);
+	key.dptr = (unsigned char*)strdup(name);
 	key.dsize = strlen(name)+1;
 
 	data = tdb_fetch(tdb, key);
@@ -1174,10 +1174,10 @@ int tdb_set_string(TDB_CONTEXT *tdb, const char *name, const char *value)
 	TDB_DATA key, data;
 	int ret;
 
-	key.dptr = strdup(name);
+	key.dptr = (unsigned char*)strdup(name);
 	key.dsize = strlen(name)+1;
 
-	data.dptr = strdup(value);
+	data.dptr = (unsigned char*)strdup(value);
 	data.dsize = strlen(value)+1;
 
 	ret = tdb_store(tdb, key, data, TDB_REPLACE);
@@ -1193,7 +1193,7 @@ const char *tdb_get_string(TDB_CONTEXT *tdb, const char *name)
 {
 	TDB_DATA key, data;
 
-	key.dptr = strdup(name);
+	key.dptr = (unsigned char*)strdup(name);
 	key.dsize = strlen(name)+1;
 
 	data = tdb_fetch(tdb, key);
@@ -1201,7 +1201,7 @@ const char *tdb_get_string(TDB_CONTEXT *tdb, const char *name)
 	if (!data.dptr) {
 		return NULL;
 	}
-	return data.dptr;
+	return (const char*)data.dptr;
 }
 
 /*
@@ -1212,7 +1212,7 @@ int tdb_delete_string(TDB_CONTEXT *tdb, const char *name)
 	TDB_DATA key;
 	int ret;
 
-	key.dptr = strdup(name);
+	key.dptr = (unsigned char*)strdup(name);
 	key.dsize = strlen(name)+1;
 
 	ret = tdb_delete(tdb, key);

@@ -39,7 +39,7 @@ static int all_zero(const char *ptr, unsigned size)
 {
 	int i;
 	if (!ptr) return 1;
-	for (i=0;i<size;i++) {
+	for (i=0;i<(int)size;i++) {
 		if (ptr[i]) return 0;
 	}
 	return 1;

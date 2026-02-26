@@ -216,7 +216,7 @@ int com_sought(int p, param_list param)
 	UNUSED(param);
 	int             i;
 
-	for (i = 0; i < seek_globals.max_ads; i++) {
+	for (i = 0; i < (int)seek_globals.max_ads; i++) {
 		if (seek_globals.ads[i].status == SEEKCLOSED) {
 			char *msgtxt = form_ad(&seek_globals.ads[i], i);
 if(comlog) fprintf(comlog, "msgtext = %s\n", msgtxt), fflush(comlog);
@@ -240,7 +240,7 @@ void withdraw_seeks(int p)
 {
 	int             i, p1;
 
-	for (i = 0; i < seek_globals.max_ads; i++) {
+	for (i = 0; i < (int)seek_globals.max_ads; i++) {
 		if (seek_globals.ads[i].whofrom == p && 
 		    seek_globals.ads[i].status == SEEKCLOSED) {
 			seek_globals.ads[i].status = SEEKOPEN;
@@ -262,12 +262,12 @@ static int get_empty_seekslot(void)
 {
 	int i;
 
-	for (i = 0; i < seek_globals.max_ads; i++) {
+	for (i = 0; i < (int)seek_globals.max_ads; i++) {
 		if (seek_globals.ads[i].status != SEEKCLOSED) 
 			return i;
 	}
 
-	if (seek_globals.max_ads >= config_get_int("MAX_SOUGHT", DEFAULT_MAX_SOUGHT)) {
+	if ((int)seek_globals.max_ads >= config_get_int("MAX_SOUGHT", DEFAULT_MAX_SOUGHT)) {
 		d_printf("Too many seeks! please raise MAX_SOUGHT\n");
 		return -1;
 	}

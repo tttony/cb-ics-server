@@ -814,10 +814,12 @@ int com_match(int p, param_list param)
       partner = pp->partner;
       pp1 = player_globals.parray[p1].partner;
 
+      /*
+      What is this? Comparing pointers?
       if (pp < 0) {
         pprintf(p, "You have no partner for bughouse.\n");
         return COM_OK;
-      }
+      }*/
       if (pp1 < 0) {
         pprintf(p, "Your opponent has no partner for bughouse.\n");
         return COM_OK;
@@ -871,7 +873,7 @@ int com_match(int p, param_list param)
                       (winc == pendfrom->binc) &&
                       (bt == pendfrom->wtime) &&
                       (binc == pendfrom->winc) &&
-                      (rated == pendfrom->rated) &&
+                      (rated == (int)pendfrom->rated) &&
                       ((white == -1) || (white + pendfrom->seek_color == 1)) &&
                (!strcmp(category, pendfrom->category)) &&
                  (!strcmp(board, pendfrom->board_type)))) {

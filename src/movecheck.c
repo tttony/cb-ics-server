@@ -614,7 +614,7 @@ static int legal_king_move(struct game_state_t * gs, int ff, int fr, int tf, int
 
   if (gs->onMove == WHITE) {
     /* King side castling */
-    if ((fr == 0) && (tr == 0) && ((ff == gs->files/2) && (tf == gs->files-2) ||
+    if ((fr == 0) && (tr == 0) && (((ff == gs->files/2) && (tf == gs->files-2)) ||
 		 gs->drops == 2 && (tf == gs->files/2) && (ff == gs->files-1)) // [HGM] reverse Seirawan gating
 	&& (gs->wkmoved >= 0) && (gs->wkrmoved >= 0) && (gs->board[gs->files-3][0] == NOPIECE) &&
 	(gs->board[gs->files-2][0] == NOPIECE) && (gs->board[gs->files-1][0] == W_ROOK) &&
